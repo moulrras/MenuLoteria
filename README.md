@@ -14,14 +14,20 @@ Menu LOTOFÁCIL:
 0) Sair
 **************************
 • Regras para a aposta de 0 a 100:
+
 • Utilizando a biblioteca Scanner, leia um número inteiro via teclado, de 0 a 100,
 caso o número seja maior que 100 ou menor que 0, imprima a mensagem: “Aposta
 inválida.”.
+
 • Documentação:
+
 • https://docs.oracle.com/javase/8/docs/api/java/util/Scanner.html
+
 • Utilize a biblioteca Random para sortear aleatoriamente um número de 0 a 100.
+
 • Compare o número escolhido pelo usuário apostador com o número sorteado pelo
 sistema.
+
 • Documentação:
 • https://docs.oracle.com/javase/8/docs/api/java/util/Random.html
 2
