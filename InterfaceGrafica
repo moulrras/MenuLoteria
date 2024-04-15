@@ -1,0 +1,96 @@
+import javax.swing.*;
+import java.util.Random;
+
+public class InterfaceGrafica {
+    private JPanel panel1;
+    private JButton apostaDe1AButton;
+    private JButton imparOuParButton;
+    private JButton apostaDeAÀButton;
+
+    public InterfaceGrafica() {
+        apostaDe1AButton.addActionListener(e -> realizarApostaDe1A100());
+        imparOuParButton.addActionListener(e -> realizarApostaParOuImpar());
+        apostaDeAÀButton.addActionListener(e -> realizarApostaDeAÀZ());
+    }
+
+    private void realizarApostaDe1A100() {
+        int numeroEscolhido = pedirNumero("Escolha um número de 1 a 100:", 1, 100);
+        if (numeroEscolhido == -1) return;
+        int numeroAposta = new Random().nextInt(100) + 1;
+        JOptionPane.showMessageDialog(null, "O número premiado foi: " + numeroAposta);
+        if (numeroEscolhido == numeroAposta) {
+            JOptionPane.showMessageDialog(null, "Parabéns, você ganhou 1000 reais.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Que pena, você não ganhou.");
+        }
+    }
+
+    private void realizarApostaDeAÀZ() {
+        char letraEscolhida = pedirLetra("Escolha uma letra de A à Z:");
+        if (letraEscolhida == '\u0000') return;
+        char letraPremiada = (char) (new Random().nextInt(26) + 'A');
+        JOptionPane.showMessageDialog(null, "A letra premiada foi: " + letraPremiada);
+        if (letraEscolhida == letraPremiada) {
+            JOptionPane.showMessageDialog(null, "Parabéns, você ganhou 500 reais.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Que pena, você não ganhou.");
+        }
+    }
+
+    private void realizarApostaParOuImpar() {
+        int numeroEscolhido = pedirNumero("Escolha um número inteiro:");
+        if (numeroEscolhido == -1) return;
+        String resultado = (numeroEscolhido % 2 == 0) ? "par" : "ímpar";
+        int numeroAposta = pedirNumero("Escolha um número para a aposta:", 0, 100);
+        if (numeroAposta == -1) return;
+        String status = (numeroEscolhido % 2 == numeroAposta % 2) ? "ganhou" : "perdeu";
+        String resultadoEsperado = (numeroAposta % 2 == 0) ? "par" : "ímpar";
+
+        JOptionPane.showMessageDialog(null, "Você escolheu o número: " + numeroEscolhido + "\nO resultado esperado era " + resultadoEsperado + ", você " + status + ".");
+        if (status.equals("ganhou")) {
+            JOptionPane.showMessageDialog(null, "Parabéns, você ganhou 100 reais.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Que pena, você não ganhou.");
+        }
+    }
+
+    private int pedirNumero(String s) {
+        return 0;
+    }
+
+    private int pedirNumero(String mensagem, int min, int max) {
+        try {
+            String input = JOptionPane.showInputDialog(null, mensagem);
+            if (input == null || input.trim().isEmpty()) return -1;
+            int numero = Integer.parseInt(input);
+            if (numero < min || numero > max) {
+                JOptionPane.showMessageDialog(null, "Por favor, escolha um número entre " + min + " e " + max + ".");
+                return -1;
+            }
+            return numero;
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, insira um número válido.");
+            return -1;
+        }
+    }
+
+    private char pedirLetra(String mensagem) {
+        String input = JOptionPane.showInputDialog(null, mensagem);
+        if (input == null || input.trim().isEmpty()) return '\u0000';
+        input = input.toUpperCase();
+        if (input.length() != 1 || !Character.isLetter(input.charAt(0))) {
+            JOptionPane.showMessageDialog(null, "Por favor, escolha uma única letra de A à Z.");
+            return '\u0000';
+        }
+        return input.charAt(0);
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Interface Gráfica Loteria");
+        frame.setContentPane(new InterfaceGrafica().panel1);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+}
